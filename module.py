@@ -43,7 +43,7 @@ def plot_scatter_with_centroids(x: str, y: str, scaler, model, df):
         df (_type_): dataframe with features
     """
 
-    fig, ax= plt.subplots(figsize= (12, 8), dpi= 150)
+    fig, ax= plt.subplots(figsize= (12, 8), dpi= 150, facecolor= 'white')
 
     centroids= (pd.DataFrame(
         scaler.inverse_transform(model.cluster_centers_),
@@ -66,6 +66,7 @@ def plot_scatter_with_centroids(x: str, y: str, scaler, model, df):
     ax.set_ylabel(y.title().replace('_', ' '), fontweight= 'bold')
     sns.move_legend(ax, "upper center", title= None, ncol= 5, 
         bbox_to_anchor= (0.5, 1.05))
+    ax.set_facecolor('white')
     plt.show()
 
 
