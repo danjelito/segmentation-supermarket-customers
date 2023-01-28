@@ -1,11 +1,6 @@
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.neighbors import NearestNeighbors
-import random
-from math import isnan
-
 
 
 def drop_outliers(df: pd.DataFrame, columns: list, method: str):
@@ -35,44 +30,6 @@ def drop_outliers(df: pd.DataFrame, columns: list, method: str):
 
     df= df.drop(index= index_outliers)
     return df
-
-def hopkins_test(X: pd.DataFrame):
-    """Hopkins test to check if array contains meaningful cluster
-    Close to 1: the data is highly clustered, 
-    0.5: random data, 
-    Close to 0: uniformly distributed data
-    
-    Args:
-        X (pd.DataFrame): df to test. Scale and get dummies first
-
-    Returns:
-        str: hopkins test result
-    """
-
-    d = X.shape[1]
-    n = len(X)
-    m = int(0.1 * n)
-    nbrs = NearestNeighbors(n_neighbors=1).fit(X)
-
-    rand_X = random.sample(range(0, n, 1), m)
-
-    ujd = []
-    wjd = []
-    for j in range(0, m):
-        u_dist, _ = nbrs.kneighbors(np.random.uniform(np.amin(X,axis=0),np.amax(X,axis=0),d).reshape(1, -1), 2, return_distance=True)
-        ujd.append(u_dist[0][1])
-        w_dist, _ = nbrs.kneighbors(X.iloc[rand_X[j]].values.reshape(1, -1), 2, return_distance=True)
-        wjd.append(w_dist[0][1])
-
-    H = sum(ujd) / (sum(ujd) + sum(wjd))
-    if isnan(H):
-        print (ujd, wjd)
-        H = 0
-
-    if H <= 0.5:
-        print(f'Hopkins statistic= {H: .3f}: no meaningful clusters')
-    elif H > 0.5:
-        print(f'Hopkins statistic= {H: .3f}: there are meaningful clusters')
 
 
 def plot_scatter_with_centroids(x: str, y: str, scaler, model, df):
