@@ -201,11 +201,11 @@ def plot_bar_with_hue(hue: str, df: pd.DataFrame):
         )
 
     hue= hue.replace('_', ' ')
-    ax.set_title(f'{hue.title()} by {x.title()}', fontweight= 'bold')
+    ax.set_title(f'{hue.title()} by {x.title()}', fontweight= 'bold', pad= 30)
     ax.set_xlabel(x.title(), fontweight= 'bold')
     ax.set_ylabel(y.title(), fontweight= 'bold')
     ax.spines[['right', 'top']].set_visible(False)
-    sns.move_legend('center')
+    sns.move_legend(ax, loc= 'upper center', bbox_to_anchor= (0.5, 1.14), ncols= 5, title= None)
     # ax.legend(title= None)
     plt.show()
 
