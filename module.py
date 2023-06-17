@@ -42,7 +42,7 @@ def hopkins_test(X: pd.DataFrame):
     if H <= 0.5:
         print(f'Hopkins statistic= {H: .3f}: no meaningful clusters')
     elif H > 0.5:
-        print(f'Hopkins statistic= {H: .3f}: there are meaningful clusters')
+        print(f'Hopkins statistic= {H: .3f}: there are meaningful clusters') 
 
 def drop_outliers(df: pd.DataFrame, columns: list, method: str):
     """Drop outliers from a dataframe
